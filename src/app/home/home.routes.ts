@@ -6,6 +6,10 @@ export default [
       loadComponent: () => import('./pages/graphs/graphs.component').then(c => c.GraphsComponent)
    },
    {
+      path: 'form-graph',
+      loadComponent: () => import('./pages/form-graph/form-graph.component').then(c => c.FormGraphComponent)
+   },
+   {
       path: 'video',
       loadComponent: () => import('./pages/video/video.component').then(c => c.VideoComponent)
    },

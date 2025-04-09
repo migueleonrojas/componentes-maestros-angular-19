@@ -1,0 +1,17 @@
+<form class="flex flex-col gap-y-5 mt-[2rem]" [formGroup]="valueGraphFormGroup">
+
+   <mat-form-field>
+      <mat-label for="name">Nombre: </mat-label>
+      <input matInput id="name" type="text" formControlName="name" />
+   </mat-form-field>
+
+   <mat-form-field>
+      <mat-label for="value">Valor: </mat-label>
+      <input matInput id="value" type="number" formControlName="value" />
+   </mat-form-field>
+
+   <mat-form-field>
+      <mat-label for="color">State: </mat-label>
+      <input matInput id="color" type="color" formControlName="color" />
+   </mat-form-field>
+</form>
