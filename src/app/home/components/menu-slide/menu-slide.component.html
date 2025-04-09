@@ -1,0 +1,31 @@
+<mat-list class="mat-list">
+   <mat-list-item class="mat-list-item-button">
+      <button mat-mini-fab (click)="closeSideMenu()">
+         <mat-icon>close</mat-icon>
+       </button>
+   </mat-list-item>
+
+   <mat-divider></mat-divider>
+
+
+   <mat-list-item [ngClass] = '' class="mat-list-item" routerLink="/graphs" [routerLinkActive]="'is-active'">
+     <span class="mat-list-item-span">Gráficas</span>
+   </mat-list-item>
+
+   <mat-divider></mat-divider>
+
+   <mat-list-item class="mat-list-item" routerLink="/video" [routerLinkActive]="'is-active'">
+     <span class="mat-list-item-span">Video</span>
+   </mat-list-item>
+
+   <mat-divider></mat-divider>
+
+   <mat-list-item class="mat-list-item" routerLink="/chat" [routerLinkActive]="'is-active'">
+      <span class="mat-list-item-span">Chat</span>
+   </mat-list-item>
+
+   <mat-divider></mat-divider>
+ </mat-list>
+
+ 
+

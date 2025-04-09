@@ -1,0 +1,10 @@
+<mat-drawer-container class="min-h-screen">
+   <mat-drawer #drawer mode="side" opened>
+      <app-menu-slide [matDrawer]="drawer" />
+   </mat-drawer>
+   <mat-drawer-content>
+      <app-nav-bar [matDrawer]="drawer"/>
+      <router-outlet />
+   </mat-drawer-content>
+</mat-drawer-container>
+
