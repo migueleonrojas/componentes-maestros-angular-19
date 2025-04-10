@@ -1,1 +1,25 @@
-<p>card-value works!</p>
+<article class="flex items-center bg-gray-800 text-white border-b border-white-500 py-2">
+   <div class="self-center">
+      <svg width="100" height="100">
+         <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" [attr.fill]="result().domain" />
+      </svg>
+   </div>
+   <div class="flex-2 place-content-center min-w-0 ms-4">
+      <p class="text-sm font-medium">
+         {{result().name}}
+      </p>
+      <p class="text-sm truncate">
+         {{result().value}}
+      </p>
+</div>
+<div class="flex-1 inline-flex justify-center gap-x-5">
+      <button mat-mini-fab>
+         <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab>
+         <mat-icon>delete</mat-icon>
+      </button>
+   </div>
+
+
+</article>

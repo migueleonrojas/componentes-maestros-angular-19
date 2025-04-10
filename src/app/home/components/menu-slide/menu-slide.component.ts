@@ -4,7 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import {  RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -25,12 +25,8 @@ export class MenuSlideComponent {
 
    matDrawer = input.required<MatDrawer>();
 
-   public activatedRoute = inject(ActivatedRoute);
+   
 
-
-   ngOnInit() {
-      console.log(this.activatedRoute)
-   }
 
    closeSideMenu() {
       this.matDrawer().toggle();
@@ -38,7 +34,5 @@ export class MenuSlideComponent {
 
 
 }
-function toSignal(arg0: ActivatedRoute) {
-   throw new Error('Function not implemented.');
-}
+
 

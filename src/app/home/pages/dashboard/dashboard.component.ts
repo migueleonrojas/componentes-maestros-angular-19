@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, linkedSignal, OnInit } from '@angular/core';
 import { MenuSlideComponent } from '../../components/menu-slide/menu-slide.component';
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
+import { NavBarService } from '../../services/nav-bar/nav-bar.service';
+import { NgClass } from '@angular/common';
 
 @Component({
    selector: 'app-dashboard',
@@ -10,11 +12,20 @@ import { RouterOutlet } from '@angular/router';
     RouterOutlet,
     MatSidenavModule,
     NavBarComponent,
-    MenuSlideComponent
+    MenuSlideComponent,
+    NgClass
 ],
    templateUrl: './dashboard.component.html',
    styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+
+   private navBarService = inject(NavBarService);
+
+   matches = linkedSignal(this.navBarService.getBreakPointMatch());
+
+   ngOnInit() {
+      this.navBarService.setBreakPoint('(min-width: 45rem)')
+   }
 
 }

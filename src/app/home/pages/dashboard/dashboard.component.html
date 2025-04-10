@@ -1,5 +1,7 @@
 <mat-drawer-container class="min-h-screen">
-   <mat-drawer #drawer mode="side" opened>
+   <mat-drawer #drawer 
+      [ngClass]="matches() ? '' : 'mat-drawer-in-mobile' " 
+      [mode]="matches() ? 'side' : 'over' " opened>
       <app-menu-slide [matDrawer]="drawer" />
    </mat-drawer>
    <mat-drawer-content>
