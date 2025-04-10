@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ResultGraph } from '../../../core/models/graph-state.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,18 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class CardValueComponent {
 
+   edit = output<number>();
+
+   delete = output<number>();
+
    result = input.required<ResultGraph>();
+
+   editResult() {
+      this.edit.emit(this.result().id);
+   }
+
+   deleteResult() {
+      this.delete.emit(this.result().id);
+   }
 
 }

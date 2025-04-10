@@ -5,7 +5,7 @@
 
    <mat-form-field>
       <mat-label for="name">Nombre: </mat-label>
-      <input matInput id="name" type="text" formControlName="name" />
+      <input matInput id="name" type="text" formControlName="name" [value]="formValues()?.name"/>
       @if (valueGraphFormGroup.controls['name'].getError('required')) {
          <mat-error>Debes indicar un nombre</mat-error>
       }
@@ -19,7 +19,7 @@
 
    <mat-form-field>
       <mat-label for="value">Valor: </mat-label>
-      <input matInput id="value" type="number" formControlName="value" />
+      <input matInput id="value" type="number" formControlName="value" [value]="formValues()?.value"/>
       @if (valueGraphFormGroup.controls['value'].getError('required')) {
          <mat-error>Debes indicar un valor</mat-error>
       }
@@ -30,11 +30,33 @@
 
    <mat-form-field>
       <mat-label for="color">State: </mat-label>
-      <input matInput id="color" type="color" formControlName="domain" />
+      <input matInput id="color" type="color" formControlName="domain" [value]="formValues()?.domain"/>
       @if (valueGraphFormGroup.controls['domain'].getError('domain')) {
          <mat-error>Debes elegir un color</mat-error>
       }
    </mat-form-field>
 
-   <button mat-raised-button color="primary" type="submit" [disabled]="valueGraphFormGroup.invalid">Agregar</button>
+   <button mat-raised-button class="m-auto w-50" 
+      color="primary" 
+      type="submit" 
+      [disabled]="valueGraphFormGroup.invalid"
+   >
+      @if(toEditValueGraph() === undefined){
+         <span>Agregar</span>
+      }
+      @else {
+         <span>Editar</span>
+      }
+   </button>
+
+   @if(toEditValueGraph() !== undefined) {
+      <button mat-raised-button class="m-auto w-50" 
+      color="primary" 
+      type="submit" 
+      (click)="cancelEditing()"
+   >
+      Cancelar
+   </button>
+   }
 </form>
+

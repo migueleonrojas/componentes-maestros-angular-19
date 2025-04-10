@@ -1,5 +1,6 @@
 
 export interface ResultGraph {
+   id: number;
    name: string;
    value: number;
    domain: string;
