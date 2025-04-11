@@ -3,6 +3,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { BarGraphComponent } from '../../components/bar-graph/bar-graph.component';
 
 @Component({
   selector: 'app-graphs',
@@ -10,7 +11,8 @@ import { RouterLink } from '@angular/router';
    MatTabsModule,
    MatIconModule,
    MatButtonModule,
-   RouterLink
+   RouterLink,
+   BarGraphComponent
   ],
   templateUrl: './graphs.component.html',
   styleUrl: './graphs.component.scss'

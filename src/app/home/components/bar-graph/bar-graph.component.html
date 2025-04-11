@@ -1,0 +1,24 @@
+
+
+
+@if(single().length > 0){
+
+   <ngx-charts-bar-vertical
+     [view]="view"
+     [scheme]="colorScheme"
+     [results]="single()"
+     [gradient]="false"
+     [xAxis]="true"
+     [yAxis]="true"
+     [legend]="true"
+     [showXAxisLabel]="true"
+     [showYAxisLabel]="true"
+     [xAxisLabel]="'Valores'"
+     [yAxisLabel]="'Escalas'"
+     (select)="onSelect($event)">
+   </ngx-charts-bar-vertical>
+}
+
+@else {
+   <h2 class="text-center">No hay resultados</h2>
+}
