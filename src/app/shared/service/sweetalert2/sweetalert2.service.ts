@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class Sweetalert2Service {
 

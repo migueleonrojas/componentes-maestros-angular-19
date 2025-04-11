@@ -20,7 +20,12 @@ export class FormGraphComponent implements OnInit {
    
    graphStore = inject(GraphStore);
 
-   resultGraphToEdit = signal<ResultGraph | undefined>(undefined);
+   resultGraphEdit = signal<ResultGraph>({
+      id: 0,
+      name: '',
+      domain: '',
+      value: 0
+   });
    
    
    ngOnInit(): void {
@@ -30,39 +35,64 @@ export class FormGraphComponent implements OnInit {
    addingResultGraph(resultGraph: ResultGraph) {
 
       this.graphStore.addValueGraph(resultGraph);
+
+      this.resultGraphEdit.set({
+         name: '',
+         domain: '',
+         id: 0,
+         value: 0
+      });
    }
 
-   editResultGraph(id: number) {
+   editingResultGraph(id: number) {
 
-      this.resultGraphToEdit.set(this.graphStore.getValueGraph(id));
+      this.resultGraphEdit.set(this.graphStore.getValueGraph(id));
    }
 
 
-   async confirmEditResultGraph(resultGraph: ResultGraph) {
+   async editResultGraph(resultGraph: ResultGraph) {
 
       if( ! await this.sweetalert2Service.confirmAction('¿Desea editar este valor de la gráfica?')) return;
 
       this.graphStore.updateValueGraph(resultGraph);
+
+      this.resultGraphEdit.set({
+         name: '',
+         domain: '',
+         id: 0,
+         value: 0
+      });
       
-      this.resultGraphToEdit.set(undefined);
    }
 
    async cancelEditResultGraph() {
 
-      if( ! await this.sweetalert2Service.confirmAction('¿Desea cancelar la edición de este valor de la gráfica?')) return
+      if( ! await this.sweetalert2Service.confirmAction('¿Desea cancelar la edición de este valor de la gráfica?')) return;
 
-      this.resultGraphToEdit.set(undefined);
+      this.resultGraphEdit.set({
+         name: '',
+         domain: '',
+         id: 0,
+         value: 0
+      });
+
    }
 
-   async deleteResultGraph(id: number) {
+
+   async deletingResultGraph(id: number) {
       
       if( ! await this.sweetalert2Service.confirmAction('¿Desea eliminar este valor para la gráfica?')) return;
 
       this.graphStore.deleteValueGraph(id);
 
-      if (this.resultGraphToEdit()?.id === id) {
+      if (this.resultGraphEdit()?.id === id) {
          
-         this.resultGraphToEdit.set(this.graphStore.getValueGraph(id));
+         this.resultGraphEdit.set({
+            name: '',
+            domain: '',
+            id: 0,
+            value: 0
+         });
 
       }
 

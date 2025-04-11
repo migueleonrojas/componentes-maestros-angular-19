@@ -5,10 +5,9 @@
 
    <app-form class="self-center" 
       (sendValueGraph)="addingResultGraph($event)"
-      (editingValueGraph)="confirmEditResultGraph($event)"
+      (edit)="editResultGraph($event)"
       (cancelEdit)="cancelEditResultGraph()"
-      [toEditValueGraph]="resultGraphToEdit()"
-
+      [resultGraphToEdit]="resultGraphEdit()"
    />
 
    <aside class="max-h-110 min-h-110 overflow-auto">
@@ -18,9 +17,10 @@
       @for(graphResult of graphStore.results(); track graphResult.id) {
 
          <app-card-value 
-            [result]="graphResult" 
-            (edit)="editResultGraph($event)" 
-            (delete)="deleteResultGraph($event)"
+            [result]="graphResult"
+            (editing)="editingResultGraph($event)"
+            (deleting)="deletingResultGraph($event)"
+            
          />
 
       } @empty {

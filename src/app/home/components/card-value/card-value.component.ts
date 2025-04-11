@@ -11,18 +11,18 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class CardValueComponent {
 
-   edit = output<number>();
+   editing = output<number>();
 
-   delete = output<number>();
+   deleting = output<number>();
 
    result = input.required<ResultGraph>();
 
    editResult() {
-      this.edit.emit(this.result().id);
+      this.editing.emit(this.result().id);
    }
 
    deleteResult() {
-      this.delete.emit(this.result().id);
+      this.deleting.emit(this.result().id);
    }
 
 }
