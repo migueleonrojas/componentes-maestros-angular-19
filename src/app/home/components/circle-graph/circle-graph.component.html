@@ -1,0 +1,27 @@
+@if(graphsLegend().length > 0){
+   <h2>Leyenda</h2>
+   @for (graph of graphsLegend(); track graph.id) {
+      <app-legend  
+         [graph]="graph" 
+         [graphFiltered]="graphs()" 
+         (select)="onSelect($event)"
+         (remove)="onRemove($event)"
+      />
+   }
+
+   <ngx-charts-pie-chart
+      [view]="view"
+      [scheme]="colorScheme()"
+      [results]="graphs()"
+      [gradient]="false"
+      [legend]="false"
+      [labels]="true"
+      [doughnut]="true"
+      (select)="onSelect($event)"
+   >
+   </ngx-charts-pie-chart>
+}
+
+@else {
+   <h2 class="text-center">No hay resultados</h2>
+}
