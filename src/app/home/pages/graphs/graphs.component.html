@@ -4,10 +4,29 @@
    <h2 class="self-center text-4xl">Gráficas</h2>
    <mat-tab-group>
       <mat-tab label="Barras">
-         <app-bar-graph />
+         <app-bar-graph  
+            [graphs]="graphStore.resultFilterDifferent()" 
+            [graphsLegend]="graphStore.results()"
+            (filter)="filterResultGraphs($event)"
+            (removeFilter)="removeFilterResultGraphs($event)"
+         />
       </mat-tab>
-      <mat-tab label="Lineas"> Content 2 </mat-tab>
-      <mat-tab label="Circular"> Content 3 </mat-tab>
+      <mat-tab label="Lineas">
+         <app-linear-graph 
+            [graphs]="graphStore.resultFilterDifferent()" 
+            [graphsLegend]="graphStore.results()"
+            (filter)="filterResultGraphs($event)"
+            (removeFilter)="removeFilterResultGraphs($event)"
+         />
+      </mat-tab>
+      <mat-tab label="Circular">
+         <app-circle-graph 
+            [graphs]="graphStore.resultFilterDifferent()" 
+            [graphsLegend]="graphStore.results()"
+            (filter)="filterResultGraphs($event)"
+            (removeFilter)="removeFilterResultGraphs($event)"
+         />
+      </mat-tab>
     </mat-tab-group>
 </article>
 

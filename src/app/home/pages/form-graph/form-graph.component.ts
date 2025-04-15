@@ -30,6 +30,7 @@ export class FormGraphComponent implements OnInit {
    
    ngOnInit(): void {
       this.navBarService.setBreakPoint('(min-width: 45rem)');
+      /* this.graphStore.loadResultGraphs(); */
    }
 
    addingResultGraph(resultGraph: ResultGraph) {

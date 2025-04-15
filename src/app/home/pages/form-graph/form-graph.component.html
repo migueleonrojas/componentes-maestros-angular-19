@@ -8,6 +8,7 @@
       (edit)="editResultGraph($event)"
       (cancelEdit)="cancelEditResultGraph()"
       [resultGraphToEdit]="resultGraphEdit()"
+      [resultGraphs]="graphStore.results()"
    />
 
    <aside class="max-h-110 min-h-110 overflow-auto">
