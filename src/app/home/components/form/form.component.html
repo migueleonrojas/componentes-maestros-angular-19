@@ -1,6 +1,5 @@
 @let result = resultGraphToEdit();
 
-
 <form class="flex flex-col gap-y-5 mt-[2rem] py-5" 
    [formGroup]="valueGraphFormGroup"
    (ngSubmit)="getValueGraph()"
@@ -8,7 +7,7 @@
 >
    <mat-form-field>
       <mat-label for="name">Nombre: </mat-label>
-      <input matInput id="name" type="text" formControlName="name" [value]="result.name"/>
+      <input matInput id="name" type="text" formControlName="name" [value]="result.name" >
       @if (
          valueGraphFormGroup.controls['name'].getError('required') &&
          (
@@ -36,6 +35,17 @@
       ) {
          <mat-error>El nombre solo puede contener letras y no debe tener más de un espacio.</mat-error>
       }
+
+      @else if (
+         valueGraphFormGroup.controls['name'].getError('valueIncludeInArray') &&
+         (
+            valueGraphFormGroup.controls['name'].dirty  ||
+            valueGraphFormGroup.controls['name'].touched
+         )
+      ) {
+         <mat-error>El nombre ya esta en uso, por favor utilize otro.</mat-error>
+      }
+      
    </mat-form-field>
 
    <mat-form-field>
@@ -81,15 +91,15 @@
       [disabled]="valueGraphFormGroup.invalid"
       
    >
-      @if(result.id === 0){
-         <span>Agregar</span>
+      @if(isEditing()){
+         <span>Editar</span>
       }
       @else {
-         <span>Editar</span>
+         <span>Agregar</span>
       }
    </button>
 
-   @if(result.id !== 0) {
+   @if(isEditing()) {
       <button mat-raised-button class="m-auto w-50" 
       color="primary" 
       type="button" 

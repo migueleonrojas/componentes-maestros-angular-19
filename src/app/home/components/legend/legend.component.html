@@ -1,0 +1,10 @@
+@let graphLocal = graph();
+
+<article [ngClass]="isFiltered() ? 'opacity-20' : 'opacity-100' " class="flex flex-col inline-flex items-center mx-2 my-2">
+   <svg class="max-h-5 max-w-10 cursor-pointer" (click)="selectFiltered(graphLocal)">
+      <rect class="h-full w-full" [attr.fill]="graphLocal.domain"/>
+   </svg>
+
+   <p>{{graphLocal.name}}</p>
+
+</article>

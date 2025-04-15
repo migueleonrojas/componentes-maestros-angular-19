@@ -1,22 +1,31 @@
-
-
-
-@if(single().length > 0){
+@if(graphsLegend().length > 0){
+   <h2>Leyenda</h2>
+   @for (graph of graphsLegend(); track graph.id) {
+      <app-legend  
+         [graph]="graph" 
+         [graphFiltered]="graphs()" 
+         (select)="onSelect($event)"
+         (remove)="onRemove($event)"
+      />
+   }
 
    <ngx-charts-bar-vertical
      [view]="view"
-     [scheme]="colorScheme"
-     [results]="single()"
+     [scheme]="colorScheme()"
+     [results]="graphs()"
      [gradient]="false"
      [xAxis]="true"
      [yAxis]="true"
-     [legend]="true"
+     [legend]="false"
      [showXAxisLabel]="true"
      [showYAxisLabel]="true"
      [xAxisLabel]="'Valores'"
      [yAxisLabel]="'Escalas'"
      (select)="onSelect($event)">
    </ngx-charts-bar-vertical>
+
+   
+
 }
 
 @else {
