@@ -15,9 +15,6 @@ export interface ResultGraphForm  {
 }
 
 export type GraphState = {
-   xAxisLabel: string;
-   yAxisLabel: string;
    results: ResultGraph[];
    filteredResults: ResultGraph[];
-   colorScheme: string[]
 }

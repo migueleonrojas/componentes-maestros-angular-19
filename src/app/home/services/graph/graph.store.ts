@@ -1,6 +1,6 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals'
 import { GraphState, ResultGraph } from '../../../core/models/graph-state.model'
-import {  firstValueFrom, pipe, switchMap } from 'rxjs';
+import { pipe, switchMap } from 'rxjs';
 import { inject, computed, effect } from '@angular/core';
 import { GraphService } from './graph.service';
 import { tapResponse } from '@ngrx/operators';
@@ -8,9 +8,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { getDifferentElements } from '../../../shared/utils/arrays';
 
 const initialState: GraphState = {
-   xAxisLabel: '',
-   yAxisLabel: '',
-   colorScheme: [],
+  
    results: [],
    filteredResults: []
 }

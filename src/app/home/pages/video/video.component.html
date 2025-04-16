@@ -1,1 +1,12 @@
-<p>video works!</p>
+<article>
+   <app-video-container 
+      [progress]="progressVideo()"
+      [quality]="qualityVideo()"
+      [subtitle]="subtitleVideo()"
+      [path]="pathVideo()"
+      (setPath)="setNewPath($event)"
+      (setProgress)="setNewProgress($event)"
+      (setQuality)="setNewQuality($event)"
+      (setSubtitle)="setNewSubtitle($event)"
+   />
+</article>
