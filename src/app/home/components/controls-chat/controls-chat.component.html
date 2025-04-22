@@ -1,0 +1,15 @@
+<form class="flex h-1/1 gap-2" (ngSubmit)="sendMessage(inputVal(), $event)">
+   <textarea 
+      name="message"
+      class="basis-9/10 resize-none p-2 border bg-white"
+      (keyup.enter)="sendMessage(inputVal(), $event)"
+      [(ngModel)]="inputVal"
+   >
+   </textarea>
+   <div class="basis-1/10 self-center text-center justify-self-center">
+      <button mat-fab type="submit">
+         <mat-icon>send</mat-icon>
+      </button>
+   </div>
+
+</form>

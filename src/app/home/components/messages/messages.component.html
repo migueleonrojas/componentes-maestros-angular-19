@@ -1,0 +1,17 @@
+@for (message of messages(); track $index) {
+   <div 
+      class="text-white p-2 my-5 rounded-xl w-3/4"
+      [ngClass]="{
+         'rounded-br-none': message.sender === sender.USER,
+         'rounded-tl-none': message.sender === sender.SUPPORT,
+         'justify-self-end': message.sender === sender.USER,
+         'bg-gray-500': message.sender === sender.USER,
+         'bg-gray-700': message.sender === sender.SUPPORT
+
+      }"
+   >
+      <p>{{message.content.text}}</p>
+      <p class="text-right">{{message.date | date:'dd/MM hh:mm'}}</p>
+
+   </div>
+}
