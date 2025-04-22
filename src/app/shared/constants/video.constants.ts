@@ -51,12 +51,12 @@ export const ALL_QUALITYS: Qualitys = {
 
 export const ALL_SUBTITLES: Subtitles = {
    [Language.SPANISH]: {
-      label: 'Spanish',
+      label: 'Español',
       srclang: 'es',
       path: PATH_SUBTITLE_ES
    },
    [Language.ENGLISH]: {
-      label: 'English',
+      label: 'Inglés',
       srclang: 'en',
       path: PATH_SUBTITLE_EN
    }

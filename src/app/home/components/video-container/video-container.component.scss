@@ -1,0 +1,9 @@
+section {
+   height: calc(100vh - 4rem);
+}
+
+vg-media ::cue,
+video::cue,
+video > text {
+  color: transparent;
+}

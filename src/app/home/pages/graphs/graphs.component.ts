@@ -8,6 +8,7 @@ import { GraphStore } from '../../services/graph/graph.store';
 import { ResultGraph } from '../../../core/models/graph-state.model';
 import { LinearGraphComponent } from "../../components/linear-graph/linear-graph.component";
 import { CircleGraphComponent } from '../../components/circle-graph/circle-graph.component';
+import { NavBarService } from '../../services/nav-bar/nav-bar.service';
 
 
 @Component({
@@ -24,7 +25,17 @@ import { CircleGraphComponent } from '../../components/circle-graph/circle-graph
   templateUrl: './graphs.component.html',
   styleUrl: './graphs.component.scss'
 })
-export class GraphsComponent {
+export class GraphsComponent implements OnInit {
+
+
+   private navBarService = inject(NavBarService);
+
+
+
+   ngOnInit() {
+      this.navBarService.setBreakPoint('(min-width: 45rem)')
+   }
+
    
    graphStore = inject(GraphStore);
 

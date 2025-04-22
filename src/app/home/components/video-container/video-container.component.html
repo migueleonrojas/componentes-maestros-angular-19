@@ -1,56 +1,60 @@
-<vg-player>
+<section class="flex justify-center items-center">
+   <article class="basis-9/10 h-[85%]">
+      <vg-player>
 
-   <vg-overlay-play></vg-overlay-play>
-   <vg-buffering></vg-buffering>
+         <vg-overlay-play></vg-overlay-play>
+         <vg-buffering></vg-buffering>
 
-   <vg-scrub-bar>
-      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-   </vg-scrub-bar>
+         <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+         </vg-scrub-bar>
 
-   <vg-controls>
-      <vg-play-pause></vg-play-pause>
-      <vg-playback-button></vg-playback-button>
-      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display> 
-      
-      <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-      <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
-      <vg-track-selector [vgFor]="$any(media)"></vg-track-selector>
-      <vg-quality-selector 
-         [bitrates]="allQualitys"
-         (onBitrateChange)="changeQuality($event)"
-      >
-      </vg-quality-selector>
+         <vg-controls [vgAutohide]="true" [vgMedia]="$any(media)">
+            <vg-play-pause></vg-play-pause>
+            <vg-playback-button></vg-playback-button>
+            <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display> 
+            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+            <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+            <vg-track-selector [vgFor]="$any(media)"></vg-track-selector>
+            <vg-quality-selector
+               [bitrates]="allQualitys"
+               (onBitrateChange)="changeQuality($event)"
+            >
+            </vg-quality-selector>
 
-      <vg-mute></vg-mute>
-      <vg-volume></vg-volume>
+            <vg-mute></vg-mute>
+            <vg-volume></vg-volume>
 
-      <vg-fullscreen></vg-fullscreen>
-   </vg-controls>
-   
-   <video 
-      [vgMedia]="$any(media)"  
-      (timeupdate)="changeProgress($event)"
-      (loadedmetadata)="setDataVideo()"
-      #media id="singleVideo" 
-      preload="auto" 
-      crossorigin
-   >
-
-      <source [src]="path()" type="video/mp4">
-
-      @for (subtitleLocal of allSubtitles; track $index) {
+            <vg-fullscreen></vg-fullscreen>
+         </vg-controls>
          
-         <track 
-            kind="subtitles" 
-            [label]="subtitleLocal.label" 
-            [src]="subtitleLocal.path" 
-            [srclang]="subtitleLocal.srclang" 
-            
-         > 
-         
-      }
-      
-   </video>
+         <video 
+            class="relative"
+            [vgMedia]="$any(media)"
+            (timeupdate)="changeProgress($event)"
+            #media id="singleVideo" 
+            preload="auto" 
+            crossorigin
+         >
 
-</vg-player>
+            <source [src]="path()" type="video/mp4">
+
+            @for (subtitleLocal of allSubtitles; track $index) {
+               <track
+                  #tracks
+                  kind="subtitles" 
+                  [label]="subtitleLocal.label" 
+                  [src]="subtitleLocal.path" 
+                  [srclang]="subtitleLocal.srclang"
+                  [default]="subtitleLocal.path === subtitle().path"    
+               > 
+            }
+         </video>
+         <div class="inline-block absolute w-full bottom-[15%] left-[0%] text-2xl bg-[rgba(0,0,0,0.3)] text-center text-white font-serif">
+            {{currentTextSubtitle()}}
+         </div>
+         
+      </vg-player>
+</article>
+</section>

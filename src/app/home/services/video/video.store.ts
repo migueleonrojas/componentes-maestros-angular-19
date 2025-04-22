@@ -1,6 +1,6 @@
 import { patchState, signalStore, withHooks, withMethods, withState } from "@ngrx/signals";
 import { VideoState } from "../../../core/models/video-state.model";
-import { ALL_QUALITYS, ALL_SUBTITLES, ALL_VIDEO_PATHS } from "../../../shared/constants/video.constants";
+import { ALL_QUALITYS, ALL_SUBTITLES, ALL_VIDEO_PATHS, PATH_SUBTITLE_NONE } from "../../../shared/constants/video.constants";
 import { Language } from "../../../core/models/language.enum";
 import { Quality } from "../../../core/models/quality.enum";
 import { Subtitle } from "../../../core/models/subtitle.model";
@@ -14,7 +14,11 @@ import { tapResponse } from "@ngrx/operators";
 const initialState: VideoState = {
    path: ALL_VIDEO_PATHS[Quality.STANTARD],
    quality: ALL_QUALITYS[Quality.STANTARD],
-   subtitle: ALL_SUBTITLES[Language.SPANISH],
+   subtitle: {
+      label: '',
+      path: PATH_SUBTITLE_NONE,
+      srclang: ''
+   },
    progress: 0
 }
 

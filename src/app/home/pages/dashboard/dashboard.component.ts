@@ -18,14 +18,12 @@ import { NgClass } from '@angular/common';
    templateUrl: './dashboard.component.html',
    styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
    private navBarService = inject(NavBarService);
 
    matches = linkedSignal(this.navBarService.getBreakPointMatch());
 
-   ngOnInit() {
-      this.navBarService.setBreakPoint('(min-width: 45rem)')
-   }
+   
 
 }
