@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, input, output, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, inject, input, output, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { BitrateOptions, IDRMLicenseServer, VgApiService, VgCoreModule, VgMediaDirective } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
@@ -95,10 +95,14 @@ export class VideoContainerComponent implements AfterViewInit {
    setLabelQualityVideo() {
       const $qualitySelector = document.querySelector('.quality-selected'); 
       const $selectSelector = document.querySelector('.quality-selector') as HTMLSelectElement;
+
       $qualitySelector?.classList.remove("vg-icon-hd");
+
       $selectSelector.selectedIndex = this.quality().qualityIndex;
+
       const span = document.createElement('span');
       span.textContent = this.quality().label!;
+
       $qualitySelector?.insertAdjacentElement('beforeend', span);
       
    }
@@ -114,8 +118,6 @@ export class VideoContainerComponent implements AfterViewInit {
 
 
    changeQuality(quality: BitrateOptions) {
-
-      console.log('1222');
 
       this.progressLocal = this.vgApi.currentTime;
 
@@ -189,4 +191,21 @@ export class VideoContainerComponent implements AfterViewInit {
    onVideoSrcChanged() {
       this.setProgressVideo();
    }
+
+   @HostListener('document:visibilitychange', ['$event'])
+   handleVisibilityChange(event: Event) {
+
+      const video = this.media.elem as HTMLVideoElement;
+
+      if (document.hidden) {
+
+         this.vgApi.pause();
+
+      }
+
+      else if(!document.hidden && !video.paused) {
+         this.vgApi.play();
+      }
+   }
+
 }
