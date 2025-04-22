@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, output, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, input, output, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { BitrateOptions, IDRMLicenseServer, VgApiService, VgCoreModule, VgMediaDirective } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './video-container.component.html',
   styleUrl: './video-container.component.scss'
 })
-export class VideoContainerComponent {
+export class VideoContainerComponent implements AfterViewInit {
 
    @ViewChild(VgApiService) vgApi: VgApiService = {} as VgApiService;
    @ViewChild(VgMediaDirective, { static: false }) media: VgMediaDirective = {} as VgMediaDirective;
@@ -30,6 +30,7 @@ export class VideoContainerComponent {
 
    progress = input.required<number>();
    setProgress = output<number>();
+   progressLocal = 0;
 
    quality = input.required<BitrateOptions>();
    setQuality = output<BitrateOptions>();
@@ -68,35 +69,38 @@ export class VideoContainerComponent {
    
 
    ngAfterViewInit() {
-
-      this.setProgressVideo();
-
-      this.setLabelQualityVideo();
       
-      this.changeQuality(this.quality());
+      
+      this.setLabelQualityVideo();
 
-      this.setSubtitleVideo();
+      this.setSubtitleVideo();   
       
    }
    
    
    setProgressVideo() {
+
+      if(this.progress() === 0) {
+
+         this.vgApi.currentTime = this.progressLocal;
+      }
       
-      this.vgApi.currentTime = this.progress();
+      else {
+         this.vgApi.currentTime = this.progress();
+      }
 
       
    }
 
    setLabelQualityVideo() {
-      const $qualitySelector = document.querySelector('.quality-selected');
-      
+      const $qualitySelector = document.querySelector('.quality-selected'); 
+      const $selectSelector = document.querySelector('.quality-selector') as HTMLSelectElement;
       $qualitySelector?.classList.remove("vg-icon-hd");
-
+      $selectSelector.selectedIndex = this.quality().qualityIndex;
       const span = document.createElement('span');
-
       span.textContent = this.quality().label!;
-
       $qualitySelector?.insertAdjacentElement('beforeend', span);
+      
    }
 
 
@@ -111,10 +115,16 @@ export class VideoContainerComponent {
 
    changeQuality(quality: BitrateOptions) {
 
+      console.log('1222');
+
+      this.progressLocal = this.vgApi.currentTime;
+
       let newPathVideo = ALL_VIDEO_PATHS[quality.qualityIndex as keyof VideoPaths];
       this.setPath.emit(newPathVideo);
       this.setQuality.emit(quality);
+      
       this.media.loadMedia();
+
       
    }
 
@@ -174,5 +184,9 @@ export class VideoContainerComponent {
       this.trackShowing.addEventListener('cuechange', this.setTextCurrentSubtitle);
       
 
+   }
+
+   onVideoSrcChanged() {
+      this.setProgressVideo();
    }
 }

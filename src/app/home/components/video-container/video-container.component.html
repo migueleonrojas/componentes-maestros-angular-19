@@ -15,8 +15,11 @@
             <vg-playback-button></vg-playback-button>
             <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display> 
             <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-            <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+            <vg-scrub-bar style="pointer-events: none;">
+               
+            </vg-scrub-bar>
             <vg-track-selector [vgFor]="$any(media)"></vg-track-selector>
+            
             <vg-quality-selector
                [bitrates]="allQualitys"
                (onBitrateChange)="changeQuality($event)"
@@ -33,6 +36,7 @@
             class="relative"
             [vgMedia]="$any(media)"
             (timeupdate)="changeProgress($event)"
+            (loadedmetadata)="onVideoSrcChanged()"
             #media id="singleVideo" 
             preload="auto" 
             crossorigin
@@ -51,8 +55,8 @@
                > 
             }
          </video>
-         <div class="inline-block absolute w-full bottom-[15%] left-[0%] text-2xl bg-[rgba(0,0,0,0.3)] text-center text-white font-serif">
-            {{currentTextSubtitle()}}
+         <div class="inline-block absolute w-full bottom-[15%] left-[0%] text-2xl text-center text-white font-serif">
+            <span class="bg-[rgba(0,0,0,0.3)]">{{currentTextSubtitle()}}</span>
          </div>
          
       </vg-player>

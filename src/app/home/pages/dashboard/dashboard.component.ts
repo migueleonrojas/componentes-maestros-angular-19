@@ -4,7 +4,6 @@ import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import { NavBarService } from '../../services/nav-bar/nav-bar.service';
-import { NgClass } from '@angular/common';
 
 @Component({
    selector: 'app-dashboard',
@@ -12,8 +11,7 @@ import { NgClass } from '@angular/common';
     RouterOutlet,
     MatSidenavModule,
     NavBarComponent,
-    MenuSlideComponent,
-    NgClass
+    MenuSlideComponent
 ],
    templateUrl: './dashboard.component.html',
    styleUrl: './dashboard.component.scss'
@@ -22,7 +20,7 @@ export class DashboardComponent {
 
    private navBarService = inject(NavBarService);
 
-   matches = linkedSignal(this.navBarService.getBreakPointMatch());
+   matches = this.navBarService.getBreakPointMatch();
 
    
 

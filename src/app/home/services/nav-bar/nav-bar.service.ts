@@ -10,7 +10,11 @@ export class NavBarService {
 
    private resultMatches = signal<boolean>(false);
 
+   
+
    setBreakPoint(breakPoint: string) {
+
+      this.resultMatches.set(this.breakpointObserver.isMatched(breakPoint));
 
       this.breakpointObserver.observe(breakPoint).subscribe(( result: BreakpointState) => {
          this.resultMatches.set(result.matches);
@@ -19,6 +23,8 @@ export class NavBarService {
    }
 
    getBreakPointMatch(): Signal<boolean> {
+
+
       return this.resultMatches.asReadonly();
    }
   
