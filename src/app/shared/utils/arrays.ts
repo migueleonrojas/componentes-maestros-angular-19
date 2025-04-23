@@ -1,5 +1,6 @@
-import levenshtein from 'fast-levenshtein';
 import { PossibleAnswers } from '../../core/models/possible-answers.interface';
+import { PossibleAnswer } from '../../core/models/possible-answer.model';
+import { normalizeText } from './text';
 
 
 export const getDifferentElements = <T extends Record<string, any>>(
@@ -22,36 +23,44 @@ export const getDifferentElements = <T extends Record<string, any>>(
    });
  };
 
-export const getAnswer = (answers: ReadonlyArray<string>, message:string): string => {
 
-   const possibleAnswers: PossibleAnswers[] = [];
-
-   for(let i = 0; i < message.split(' ').length; i++) {
-
-      let coincidencesInclude = 0;
-
-      for(let j = 0; j < answers.length; j++) {
-
-         if(answers[j].toLowerCase().replace(',', ' ').includes(message.split(' ')[i])) {
-            coincidencesInclude ++;
-            possibleAnswers.push({
-               coincidencesScore: coincidencesInclude * message.split(' ')[i].length,
-               textAnswer: answers[j]
-            })
-         }
-         else {
-            possibleAnswers.push({
-               coincidencesScore: 0,
-               textAnswer: answers[j]
-            })
-         }
-         
-      } 
-
-   }
+export const getAnswer = (question: string, answers: string []): string => {
+    
+   let possiblesAnswers: PossibleAnswer[] = [];
    
-   const answer = possibleAnswers.reduce((prev, current) => current.coincidencesScore > prev.coincidencesScore ? current: prev);
+   let coincidences = 0;
+   
+   for(let i = 0; i < answers.length; i++) {
+       
+       coincidences = 0;
+       
+       let questionNormalizeArray = normalizeText(question).split(' ');
+       let answerNormalizeArray = normalizeText(answers[i]).split(' ');
+       
+       for(let j = 0; j < questionNormalizeArray.length; j++) {
 
-   return answer.textAnswer;
+           for(let k = 0; k < answerNormalizeArray.length; k++) {
+                     
+               if(
+                   answerNormalizeArray[k].includes(questionNormalizeArray[j])
+               ){
+                   
+                   coincidences++;
+               }
 
+           }
+
+       }
+       
+       possiblesAnswers.push({
+           text: answers[i],
+           coincidences
+       })
+       
+       
+   }
+
+   
+   return possiblesAnswers.sort((a, b) => b.coincidences - a.coincidences )[0].text;
+   
 }

@@ -1,5 +1,4 @@
-import { afterNextRender, Component, effect, inject, viewChild } from '@angular/core';
-import { ChatService } from '../../services/chat/chat.service';
+import {  Component, effect, inject, viewChild } from '@angular/core';
 import { MessagesComponent } from "../messages/messages.component";
 import { ControlsChatComponent } from "../controls-chat/controls-chat.component";
 import { ChatStore } from '../../services/chat/chat.store';
@@ -16,13 +15,14 @@ export class WindowChatComponent {
    chatStore = inject(ChatStore);
    messagesComponent = viewChild.required(MessagesComponent);
 
-  
-
 
     constructor() {
-      afterNextRender(() => {
-        this.scrollChatToBottom();
-      });
+
+      effect(() => {
+         this.chatStore.messages();
+         this.scrollChatToBottom();
+      })
+
     }
 
 
@@ -31,16 +31,21 @@ export class WindowChatComponent {
 
       this.chatStore.addMessage(newMessage);
 
-      this.chatStore.supportResponse('a');
+      this.chatStore.supportResponse(newMessage.content.text);
 
    }
 
    scrollChatToBottom() {
-      const el = this.messagesComponent().scrollContainer;
-      el.scroll({
-         behavior: 'smooth',
-         top: el.scrollHeight,
-      });
+      const el = this.messagesComponent().scrollContainer as HTMLElement;
+      
+      setTimeout(
+         () => {
+            el.scrollIntoView({ behavior: "smooth", block: "end" }); 
+         },
+         0
+      );
+
+      
     }
 
 }
